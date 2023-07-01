@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/delay.h>
 
 int current_floor = 1;
 int active_request = 0;
@@ -26,6 +27,13 @@ ISR(INT0_vect)
 	if (PINB6) {
 		add_request(4);
 	}
+}
+
+uint16_t adc_read()
+{
+	ADCSRA |= (1<<ADSC); // Start conversion
+	while(ADCSRA & (1<<ADSC)); // Wait for conversion to finish
+	return ADC; // Return ADC value
 }
 
 void add_request(int floor) { // maybe active req out therefore 3?
@@ -85,6 +93,11 @@ int main(void)
 	PORTD |= (1 << PD2); // Enable pull-up resistor on PD2
 	MCUCR |= (1 << ISC01); // Set for falling edge detection
 	GICR |= (1 << INT0); // Enable external interrupt INT0
+	
+	// adc init
+	ADMUX = (1<<REFS0); // AVCC with external capacitor at AREF pin
+	ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0); // ADC Enable and prescaler of 128
+
 	
 	sei(); // Enable global interrupts
 	
