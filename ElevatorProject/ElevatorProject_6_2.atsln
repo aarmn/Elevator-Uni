@@ -1,0 +1,20 @@
+
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "ElevatorProject", "ElevatorProject\ElevatorProject_6_2.cppproj", "{DB1F6B00-7C2E-429B-A6EC-A710EB12928D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB1F6B00-7C2E-429B-A6EC-A710EB12928D}.Debug|AVR.ActiveCfg = Debug|AVR
+		{DB1F6B00-7C2E-429B-A6EC-A710EB12928D}.Debug|AVR.Build.0 = Debug|AVR
+		{DB1F6B00-7C2E-429B-A6EC-A710EB12928D}.Release|AVR.ActiveCfg = Release|AVR
+		{DB1F6B00-7C2E-429B-A6EC-A710EB12928D}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
