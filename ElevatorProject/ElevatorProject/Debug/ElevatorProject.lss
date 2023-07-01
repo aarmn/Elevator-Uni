@@ -3,29 +3,29 @@ ElevatorProject.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000fa  00000000  00000000  00000054  2**1
+  0 .text         00000158  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  0000014e  2**0
+  1 .data         00000000  00800060  00800060  000001ac  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000014e  2**0
+  2 .comment      00000030  00000000  00000000  000001ac  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000180  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001dc  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000048  00000000  00000000  000001bc  2**0
+  4 .debug_aranges 00000058  00000000  00000000  00000218  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000007ed  00000000  00000000  00000204  2**0
+  5 .debug_info   000008e2  00000000  00000000  00000270  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000662  00000000  00000000  000009f1  2**0
+  6 .debug_abbrev 0000068b  00000000  00000000  00000b52  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000002b4  00000000  00000000  00001053  2**0
+  7 .debug_line   00000323  00000000  00000000  000011dd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000090  00000000  00000000  00001308  2**2
+  8 .debug_frame  000000b0  00000000  00000000  00001500  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000049f  00000000  00000000  00001398  2**0
+  9 .debug_str    000004e3  00000000  00000000  000015b0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000001f3  00000000  00000000  00001837  2**0
+ 10 .debug_loc    000002cb  00000000  00000000  00001a93  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000038  00000000  00000000  00001a2a  2**0
+ 11 .debug_ranges 00000048  00000000  00000000  00001d5e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -60,8 +60,8 @@ Disassembly of section .text:
   5a:	d8 e0       	ldi	r29, 0x08	; 8
   5c:	de bf       	out	0x3e, r29	; 62
   5e:	cd bf       	out	0x3d, r28	; 61
-  60:	0e 94 71 00 	call	0xe2	; 0xe2 <main>
-  64:	0c 94 7b 00 	jmp	0xf6	; 0xf6 <_exit>
+  60:	0e 94 90 00 	call	0x120	; 0x120 <main>
+  64:	0c 94 aa 00 	jmp	0x154	; 0x154 <_exit>
 
 00000068 <__bad_interrupt>:
   68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -113,73 +113,150 @@ void lift_motor_request(floor_t current_floor, floor_t dest_floor){
 	int number_of_floors = current_floor - dest_floor;
   a4:	86 1b       	sub	r24, r22
   a6:	97 0b       	sbc	r25, r23
-	direction dir = number_of_floors >= 0 ? CLOCK_WISE : ANTI_CLOCK_WISE; //specifing direction
+	direction dir = number_of_floors >= 0 ? ANTI_CLOCK_WISE : CLOCK_WISE; //specifing direction
   a8:	f9 2e       	mov	r15, r25
-  aa:	ff 1c       	adc	r15, r15
-  ac:	ff 24       	eor	r15, r15
-  ae:	ff 1c       	adc	r15, r15
+  aa:	f0 94       	com	r15
+  ac:	ff 1c       	adc	r15, r15
+  ae:	ff 24       	eor	r15, r15
+  b0:	ff 1c       	adc	r15, r15
 	number_of_floors = abs(number_of_floors); //specifing number of floors
-  b0:	8c 01       	movw	r16, r24
-  b2:	99 23       	and	r25, r25
-  b4:	24 f4       	brge	.+8      	; 0xbe <_Z18lift_motor_requestii+0x24>
-  b6:	00 27       	eor	r16, r16
-  b8:	11 27       	eor	r17, r17
-  ba:	08 1b       	sub	r16, r24
-  bc:	19 0b       	sbc	r17, r25
+  b2:	8c 01       	movw	r16, r24
+  b4:	99 23       	and	r25, r25
+  b6:	24 f4       	brge	.+8      	; 0xc0 <_Z18lift_motor_requestii+0x26>
+  b8:	00 27       	eor	r16, r16
+  ba:	11 27       	eor	r17, r17
+  bc:	08 1b       	sub	r16, r24
+  be:	19 0b       	sbc	r17, r25
 	for (int i = 0; i < number_of_floors; i++) 
-  be:	10 16       	cp	r1, r16
-  c0:	11 06       	cpc	r1, r17
-  c2:	4c f4       	brge	.+18     	; 0xd6 <_Z18lift_motor_requestii+0x3c>
-  c4:	c0 e0       	ldi	r28, 0x00	; 0
-  c6:	d0 e0       	ldi	r29, 0x00	; 0
+  c0:	10 16       	cp	r1, r16
+  c2:	11 06       	cpc	r1, r17
+  c4:	4c f4       	brge	.+18     	; 0xd8 <_Z18lift_motor_requestii+0x3e>
+  c6:	c0 e0       	ldi	r28, 0x00	; 0
+  c8:	d0 e0       	ldi	r29, 0x00	; 0
 }
 
 
 
 void lift_next_floor(floor_t current_floor, direction dir) {
 	rotate_lift_motor_for_one_floor(dir);
-  c8:	8f 2d       	mov	r24, r15
-  ca:	0e 94 36 00 	call	0x6c	; 0x6c <_Z31rotate_lift_motor_for_one_floor9direction>
+  ca:	8f 2d       	mov	r24, r15
+  cc:	0e 94 36 00 	call	0x6c	; 0x6c <_Z31rotate_lift_motor_for_one_floor9direction>
 void lift_motor_request(floor_t current_floor, floor_t dest_floor){
 	
 	int number_of_floors = current_floor - dest_floor;
-	direction dir = number_of_floors >= 0 ? CLOCK_WISE : ANTI_CLOCK_WISE; //specifing direction
+	direction dir = number_of_floors >= 0 ? ANTI_CLOCK_WISE : CLOCK_WISE; //specifing direction
 	number_of_floors = abs(number_of_floors); //specifing number of floors
 	for (int i = 0; i < number_of_floors; i++) 
-  ce:	21 96       	adiw	r28, 0x01	; 1
-  d0:	0c 17       	cp	r16, r28
-  d2:	1d 07       	cpc	r17, r29
-  d4:	c9 f7       	brne	.-14     	; 0xc8 <_Z18lift_motor_requestii+0x2e>
+  d0:	21 96       	adiw	r28, 0x01	; 1
+  d2:	0c 17       	cp	r16, r28
+  d4:	1d 07       	cpc	r17, r29
+  d6:	c9 f7       	brne	.-14     	; 0xca <_Z18lift_motor_requestii+0x30>
 		lift_next_floor(current_floor, dir);
 		
 }
-  d6:	df 91       	pop	r29
-  d8:	cf 91       	pop	r28
-  da:	1f 91       	pop	r17
-  dc:	0f 91       	pop	r16
-  de:	ff 90       	pop	r15
-  e0:	08 95       	ret
+  d8:	df 91       	pop	r29
+  da:	cf 91       	pop	r28
+  dc:	1f 91       	pop	r17
+  de:	0f 91       	pop	r16
+  e0:	ff 90       	pop	r15
+  e2:	08 95       	ret
 
-000000e2 <main>:
+000000e4 <_Z13open_the_doorv>:
+
+
+void open_the_door(){
+	
+	//clock_wise
+	DOOR_MOTOR_PORT |= (1 << DOOR_MOTOR_IN1) | (1 << DOOR_MOTOR_EN); //enables the motor and specifies the direction of rotation
+  e4:	8b b3       	in	r24, 0x1b	; 27
+  e6:	80 65       	ori	r24, 0x50	; 80
+  e8:	8b bb       	out	0x1b, r24	; 27
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ea:	2f e7       	ldi	r18, 0x7F	; 127
+  ec:	8a e1       	ldi	r24, 0x1A	; 26
+  ee:	96 e0       	ldi	r25, 0x06	; 6
+  f0:	21 50       	subi	r18, 0x01	; 1
+  f2:	80 40       	sbci	r24, 0x00	; 0
+  f4:	90 40       	sbci	r25, 0x00	; 0
+  f6:	e1 f7       	brne	.-8      	; 0xf0 <_Z13open_the_doorv+0xc>
+  f8:	00 c0       	rjmp	.+0      	; 0xfa <_Z13open_the_doorv+0x16>
+  fa:	00 00       	nop
+	_delay_ms(TIME_TO_OPEN_THE_DOOR);
+	DOOR_MOTOR_PORT &= (0 << DOOR_MOTOR_EN); //disables the motor
+  fc:	8b b3       	in	r24, 0x1b	; 27
+  fe:	1b ba       	out	0x1b, r1	; 27
+ 100:	08 95       	ret
+
+00000102 <_Z14close_the_doorv>:
+
+
+void close_the_door(){
+
+	//anti_clock_wise
+	DOOR_MOTOR_PORT |= (1 << DOOR_MOTOR_IN2) | (1 << DOOR_MOTOR_EN); //enables the motor and specifies the direction of rotation
+ 102:	8b b3       	in	r24, 0x1b	; 27
+ 104:	80 66       	ori	r24, 0x60	; 96
+ 106:	8b bb       	out	0x1b, r24	; 27
+ 108:	2f e7       	ldi	r18, 0x7F	; 127
+ 10a:	8a e1       	ldi	r24, 0x1A	; 26
+ 10c:	96 e0       	ldi	r25, 0x06	; 6
+ 10e:	21 50       	subi	r18, 0x01	; 1
+ 110:	80 40       	sbci	r24, 0x00	; 0
+ 112:	90 40       	sbci	r25, 0x00	; 0
+ 114:	e1 f7       	brne	.-8      	; 0x10e <_Z14close_the_doorv+0xc>
+ 116:	00 c0       	rjmp	.+0      	; 0x118 <_Z14close_the_doorv+0x16>
+ 118:	00 00       	nop
+	_delay_ms(TIME_TO_CLOSE_THE_DOOR);
+	DOOR_MOTOR_PORT &= (0 << DOOR_MOTOR_EN); //disables the motor
+ 11a:	8b b3       	in	r24, 0x1b	; 27
+ 11c:	1b ba       	out	0x1b, r1	; 27
+ 11e:	08 95       	ret
+
+00000120 <main>:
 int main(void)
 {
 
 	//floor_t current_floor = 4;
 	//floor_t dest_floor = 2;
 	LIFT_MOTOR_DDR |= (1 << LIFT_MOTOR_IN1) | (1 << LIFT_MOTOR_IN2) | (1 << LIFT_MOTOR_EN);
-  e2:	8a b3       	in	r24, 0x1a	; 26
-  e4:	8e 60       	ori	r24, 0x0E	; 14
-  e6:	8a bb       	out	0x1a, r24	; 26
+ 120:	8a b3       	in	r24, 0x1a	; 26
+ 122:	8e 60       	ori	r24, 0x0E	; 14
+ 124:	8a bb       	out	0x1a, r24	; 26
+	DOOR_MOTOR_DDR |= (1 << DOOR_MOTOR_IN1) | (1 << DOOR_MOTOR_IN2) | (1 << DOOR_MOTOR_EN);
+ 126:	8a b3       	in	r24, 0x1a	; 26
+ 128:	80 67       	ori	r24, 0x70	; 112
+ 12a:	8a bb       	out	0x1a, r24	; 26
+
 	lift_motor_request(1, 2);
-  e8:	62 e0       	ldi	r22, 0x02	; 2
-  ea:	70 e0       	ldi	r23, 0x00	; 0
-  ec:	81 e0       	ldi	r24, 0x01	; 1
-  ee:	90 e0       	ldi	r25, 0x00	; 0
-  f0:	0e 94 4d 00 	call	0x9a	; 0x9a <_Z18lift_motor_requestii>
-  f4:	ff cf       	rjmp	.-2      	; 0xf4 <main+0x12>
+ 12c:	62 e0       	ldi	r22, 0x02	; 2
+ 12e:	70 e0       	ldi	r23, 0x00	; 0
+ 130:	81 e0       	ldi	r24, 0x01	; 1
+ 132:	90 e0       	ldi	r25, 0x00	; 0
+ 134:	0e 94 4d 00 	call	0x9a	; 0x9a <_Z18lift_motor_requestii>
 
-000000f6 <_exit>:
-  f6:	f8 94       	cli
+	open_the_door();
+ 138:	0e 94 72 00 	call	0xe4	; 0xe4 <_Z13open_the_doorv>
+ 13c:	2f e3       	ldi	r18, 0x3F	; 63
+ 13e:	8d e0       	ldi	r24, 0x0D	; 13
+ 140:	93 e0       	ldi	r25, 0x03	; 3
+ 142:	21 50       	subi	r18, 0x01	; 1
+ 144:	80 40       	sbci	r24, 0x00	; 0
+ 146:	90 40       	sbci	r25, 0x00	; 0
+ 148:	e1 f7       	brne	.-8      	; 0x142 <main+0x22>
+ 14a:	00 c0       	rjmp	.+0      	; 0x14c <main+0x2c>
+ 14c:	00 00       	nop
+	_delay_ms(WAIT_TIME_TO_CLOSE_THE_DOOR);
+	close_the_door();
+ 14e:	0e 94 81 00 	call	0x102	; 0x102 <_Z14close_the_doorv>
+ 152:	ff cf       	rjmp	.-2      	; 0x152 <main+0x32>
 
-000000f8 <__stop_program>:
-  f8:	ff cf       	rjmp	.-2      	; 0xf8 <__stop_program>
+00000154 <_exit>:
+ 154:	f8 94       	cli
+
+00000156 <__stop_program>:
+ 156:	ff cf       	rjmp	.-2      	; 0x156 <__stop_program>
