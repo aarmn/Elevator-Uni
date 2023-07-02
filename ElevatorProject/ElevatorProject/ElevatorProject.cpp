@@ -96,43 +96,27 @@ void set_request_for_floor(floor_t fl){
 floor_t get_nearest_available_request(floor_t current_floor){
 	
 	if (request_holder.number_of_avialable_requests <= 0)
-		return -1;
+		return 9;
 
-	uint8_t below_distance = 0, above_distance = 0;
-	floor_t above_floor = -1;
-	for (floor_t f = current_floor; f < NUMBER_OF_FLOORS; f++) 
-		if (request_holder.request_for_floor[f]) {
-			above_floor = f;
-			above_distance = f - current_floor;
-			break;
+	for (int distance = 0; distance < NUMBER_OF_FLOORS; distance++) {
+		floor_t below_floor = current_floor - distance;
+		floor_t above_floor = current_floor + distance;
+		
+		if (below_floor >= 0 && request_holder.request_for_floor[below_floor]) {
+			request_holder.number_of_avialable_requests--;
+			request_holder.request_for_floor[below_floor] = false;
+			return below_floor;
+		} else if (above_floor < NUMBER_OF_FLOORS && request_holder.request_for_floor[above_floor]) {
+			request_holder.number_of_avialable_requests--;
+			request_holder.request_for_floor[above_floor] = false;
+			return above_floor;
 		}
-	PORTB = above_distance;
-	_delay_ms(1000);
-
-	floor_t below_floor = -1;
-	for (floor_t f = current_floor - 1; f >= 0; f--)
-		if (request_holder.request_for_floor[f]) {
-			below_floor = f;
-			below_distance = current_floor - f; 
-			break;
-		}
-
-	PORTB = below_distance;
-	_delay_ms(1000);
-	
-	request_holder.number_of_avialable_requests--;
-	if (below_distance > above_distance && above_floor != -1) {
-		request_holder.request_for_floor[above_floor] = false;
-		return above_floor;
-	} else if (below_distance < above_distance && below_floor != -1) {
-		request_holder.request_for_floor[below_floor] = false;
-		return below_floor;
-	} else {
-		request_holder.request_for_floor[current_floor] = false;
-		return current_floor;
+			
 	}
-	
+	return 10;
+
 }
+
 
 void lift_motor_request(floor_t current_floor, floor_t dest_floor);
 void update_floor(floor_t, direction);
@@ -176,7 +160,7 @@ ISR(INT0_vect) {
 
 	}
 	floor_t nearest_floor = get_nearest_available_request(current_floor);
-	PORTB = nearest_floor; 
+	//PORTB = nearest_floor; 
 }
 
 
@@ -184,14 +168,17 @@ ISR(INT0_vect) {
 int main(void)
 {
 
-
 	init_ddr();
 	DDRB = 0XFF;
+
+
+	current_floor = 1;
+	set_request_for_floor(1);
+	set_request_for_floor(2);
+	PORTB = get_nearest_available_request(current_floor);
+	
 	while(1) {
-		current_floor = 4;
-		set_request_for_floor(0);
-		//PORTB = get_nearest_available_request(0);
-		//PORTB = 10;
+
 
 	}
 }
@@ -205,9 +192,9 @@ void init_ddr(){
 	KEY_SET_DDR &= ~(1 << KEY_SET_I1) & ~(1 << KEY_SET_I2) & ~(1 << KEY_SET_I4);
 
 
-	GICR |= (1 << INT0);   //Enable External Interrupts INT0 and INT1
-	MCUCR=0x08;  //Configure INT0 active low level triggered and INT1 as falling edge
-	sei();     // Enable global interrupts by setting global interrupt enable bit in SREG
+	//GICR |= (1 << INT0);   //Enable External Interrupts INT0 and INT1
+//	MCUCR=0x08;  //Configure INT0 active low level triggered and INT1 as falling edge
+//	sei();     // Enable global interrupts by setting global interrupt enable bit in SREG
 
 }
 
