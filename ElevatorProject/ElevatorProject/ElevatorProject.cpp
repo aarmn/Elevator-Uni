@@ -11,7 +11,20 @@
 
 int current_floor = 1;
 int active_request = 0;
-int[4] requests_queue = {0,0,0,0};
+int requests_queue[4] = {0,0,0,0};
+	
+void add_request(int floor) { // maybe active req out therefore 3?
+	if (active_request == floor) {
+		return;
+	}
+	if (active_request == 0) {
+		active_request = floor;
+	}
+	for (int i=0; i<=4; i++) {
+		if (requests_queue[i] == floor) return;
+		if (requests_queue[i] == 0) requests_queue[i] = floor; return;
+	}
+}
 
 ISR(INT0_vect)
 {
@@ -29,34 +42,22 @@ ISR(INT0_vect)
 	}
 }
 
-uint16_t adc_read()
-{
-	ADCSRA |= (1<<ADSC); // Start conversion
-	while(ADCSRA & (1<<ADSC)); // Wait for conversion to finish
-	return ADC; // Return ADC value
-}
-
-void add_request(int floor) { // maybe active req out therefore 3?
-	if active_request == floor {
-		return;
-	}
-	if active_request == 0 {
-		active_request = floor;
-	}
-	for (int i=0; i<=4; i++) {
-		if (requests_queue[i] == floor) return;
-		if (requests_queue[i] == 0) requests_queue[i] = floor; return;
-	}
+uint16_t adc_read(uint8_t channel) {
+	// ADMUX &= 0xF0;             // Clear the older channel that was read
+	// ADMUX |= channel;          // Defines the new ADC channel to be read
+	ADCSRA |= (1<<ADSC);         // Starts a new conversion
+	while(ADCSRA & (1<<ADSC));   // Wait until the conversion is done
+	return ADCW;                 // Returns the ADC value of the chosen channel
 }
 
 void pop_into_active_request(void) {
-	int close_i=100, close_val=100,
+	int close_i=100, close_val=100;
 	for (int i=0; i<=4; i++) {
-		if (abs(close_val-current_floor)) 
+	//	if (abs((close_val-current_floor))) 
 	}
 	active_request = requests_queue[0];
 	for (int i=1; i<=4; i++) {
-		int[i-1] = int[i];
+		requests_queue[i-1] = requests_queue[i];
 	}
 }
 
@@ -73,10 +74,10 @@ void seven_segment(int status) {
 
 int main(void)
 {
-	DDRB &= ~(1 << PB4); // go to floor 1
-	DDRB &= ~(1 << PB5); // go to floor 2
-	DDRB &= ~(1 << PB6); // go to floor 3
-	DDRB &= ~(1 << PB7); // go to floor 4
+	DDRB |= (1 << PB4); // 7seg 0
+	DDRB |= (1 << PB5); // 7seg 1
+	DDRB |= (1 << PB6); // 7seg 2
+	DDRB |= (1 << PB7); // 7seg 3
 	DDRC &= ~(1 << PC0); // request floor 1
 	DDRC &= ~(1 << PC1); // request floor 2
 	DDRC &= ~(1 << PC2); // request floor 3
@@ -95,18 +96,37 @@ int main(void)
 	GICR |= (1 << INT0); // Enable external interrupt INT0
 	
 	// adc init
-	ADMUX = (1<<REFS0); // AVCC with external capacitor at AREF pin
-	ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0); // ADC Enable and prescaler of 128
-
+    ADCSRA |= ((1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0));   // 16Mhz/128 = 125Khz the ADC reference clock
+    ADMUX |= (1<<REFS0)|(1<<REFS1);                            // Voltage reference from Avcc (5v)
+	//ADMUX |= (1<<ADLAR);
+	ADMUX &= 0xFF;
+    ADCSRA |= (1<<ADEN);                            // Turn on ADC
+    ADCSRA |= (1<<ADATE);                            // Do an initial conversion because this one is the slowest and to ensure that everything is up and running
 	
 	sei(); // Enable global interrupts
 	
 	// keys interrupt
 	
-	
+	uint16_t a;
+	int b;
 	
     while(1)
     {
-        
+		// **** TEST BCD 7SEG and ADC ****
+		//
+		//int b = ((a/100) << 4);
+		a = adc_read(0);// /100; // can be trouble some in 1024
+		// b = (a<<4);
+		//b = 5;
+		if (a > 700) {
+			b = 15;
+		}
+		else {
+			b = 1;
+		}
+		PORTB = b << 4;
+		_delay_ms(1000);
+		
+		// ^^^^ TEST BCD 7SEG and ADC ^^^^
     }
 }

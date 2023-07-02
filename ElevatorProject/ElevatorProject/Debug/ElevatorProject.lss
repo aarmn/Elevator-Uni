@@ -3,51 +3,53 @@ ElevatorProject.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000c2  00000000  00000000  00000054  2**1
+  0 .text         000001a8  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .comment      00000030  00000000  00000000  00000116  2**0
+  1 .bss          0000000a  00800060  00800060  0000021c  2**0
+                  ALLOC
+  2 .comment      00000030  00000000  00000000  0000021c  2**0
                   CONTENTS, READONLY
-  2 .debug_aranges 00000030  00000000  00000000  00000146  2**0
+  3 .debug_aranges 00000048  00000000  00000000  0000024c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_info   000000d2  00000000  00000000  00000176  2**0
+  4 .debug_info   00000323  00000000  00000000  00000294  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_abbrev 00000095  00000000  00000000  00000248  2**0
+  5 .debug_abbrev 000001b7  00000000  00000000  000005b7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_line   00000075  00000000  00000000  000002dd  2**0
+  6 .debug_line   000001b3  00000000  00000000  0000076e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_frame  00000050  00000000  00000000  00000354  2**2
+  7 .debug_frame  000000bc  00000000  00000000  00000924  2**2
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    00000199  00000000  00000000  000003a4  2**0
+  8 .debug_str    00000297  00000000  00000000  000009e0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    0000002f  00000000  00000000  0000053d  2**0
+  9 .debug_loc    0000016c  00000000  00000000  00000c77  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_ranges 00000020  00000000  00000000  0000056c  2**0
+ 10 .debug_ranges 00000038  00000000  00000000  00000de3  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
    0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
-   4:	0c 94 41 00 	jmp	0x82	; 0x82 <__vector_1>
-   8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-   c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  14:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  18:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  1c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  20:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  24:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  28:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  2c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  30:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  34:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  38:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  3c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  40:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  44:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  48:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  4c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
-  50:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   4:	0c 94 64 00 	jmp	0xc8	; 0xc8 <__vector_1>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
 
 00000054 <__ctors_end>:
   54:	11 24       	eor	r1, r1
@@ -61,92 +63,276 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e2 ec       	ldi	r30, 0xC2	; 194
-  68:	f0 e0       	ldi	r31, 0x00	; 0
+  66:	e8 ea       	ldi	r30, 0xA8	; 168
+  68:	f1 e0       	ldi	r31, 0x01	; 1
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
   70:	a0 36       	cpi	r26, 0x60	; 96
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
-  76:	0e 94 4b 00 	call	0x96	; 0x96 <main>
-  7a:	0c 94 5f 00 	jmp	0xbe	; 0xbe <_exit>
 
-0000007e <__bad_interrupt>:
-  7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+00000076 <__do_clear_bss>:
+  76:	20 e0       	ldi	r18, 0x00	; 0
+  78:	a0 e6       	ldi	r26, 0x60	; 96
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
-00000082 <__vector_1>:
-#include <avr/interrupt.h>
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
 
-int floor = 1;
+00000080 <.do_clear_bss_start>:
+  80:	aa 36       	cpi	r26, 0x6A	; 106
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 9c 00 	call	0x138	; 0x138 <main>
+  8a:	0c 94 d2 00 	jmp	0x1a4	; 0x1a4 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <_Z11add_requesti>:
+int current_floor = 1;
+int active_request = 0;
+int requests_queue[4] = {0,0,0,0};
+	
+void add_request(int floor) { // maybe active req out therefore 3?
+	if (active_request == floor) {
+  92:	20 91 68 00 	lds	r18, 0x0068
+  96:	30 91 69 00 	lds	r19, 0x0069
+  9a:	28 17       	cp	r18, r24
+  9c:	39 07       	cpc	r19, r25
+  9e:	99 f0       	breq	.+38     	; 0xc6 <_Z11add_requesti+0x34>
+		return;
+	}
+	if (active_request == 0) {
+  a0:	23 2b       	or	r18, r19
+  a2:	21 f4       	brne	.+8      	; 0xac <_Z11add_requesti+0x1a>
+		active_request = floor;
+  a4:	90 93 69 00 	sts	0x0069, r25
+  a8:	80 93 68 00 	sts	0x0068, r24
+	}
+	for (int i=0; i<=4; i++) {
+		if (requests_queue[i] == floor) return;
+  ac:	20 91 60 00 	lds	r18, 0x0060
+  b0:	30 91 61 00 	lds	r19, 0x0061
+  b4:	28 17       	cp	r18, r24
+  b6:	39 07       	cpc	r19, r25
+  b8:	31 f0       	breq	.+12     	; 0xc6 <_Z11add_requesti+0x34>
+		if (requests_queue[i] == 0) requests_queue[i] = floor; return;
+  ba:	23 2b       	or	r18, r19
+  bc:	21 f4       	brne	.+8      	; 0xc6 <_Z11add_requesti+0x34>
+  be:	90 93 61 00 	sts	0x0061, r25
+  c2:	80 93 60 00 	sts	0x0060, r24
+  c6:	08 95       	ret
+
+000000c8 <__vector_1>:
+	}
+}
 
 ISR(INT0_vect)
 {
-  82:	1f 92       	push	r1
-  84:	0f 92       	push	r0
-  86:	0f b6       	in	r0, 0x3f	; 63
-  88:	0f 92       	push	r0
-  8a:	11 24       	eor	r1, r1
-		
+  c8:	1f 92       	push	r1
+  ca:	0f 92       	push	r0
+  cc:	0f b6       	in	r0, 0x3f	; 63
+  ce:	0f 92       	push	r0
+  d0:	11 24       	eor	r1, r1
+  d2:	2f 93       	push	r18
+  d4:	3f 93       	push	r19
+  d6:	4f 93       	push	r20
+  d8:	5f 93       	push	r21
+  da:	6f 93       	push	r22
+  dc:	7f 93       	push	r23
+  de:	8f 93       	push	r24
+  e0:	9f 93       	push	r25
+  e2:	af 93       	push	r26
+  e4:	bf 93       	push	r27
+  e6:	ef 93       	push	r30
+  e8:	ff 93       	push	r31
+	if (PINB4) {
+		add_request(1);
+  ea:	81 e0       	ldi	r24, 0x01	; 1
+  ec:	90 e0       	ldi	r25, 0x00	; 0
+  ee:	0e 94 49 00 	call	0x92	; 0x92 <_Z11add_requesti>
+	}
+	if (PINB5) {
+		add_request(2);
+  f2:	82 e0       	ldi	r24, 0x02	; 2
+  f4:	90 e0       	ldi	r25, 0x00	; 0
+  f6:	0e 94 49 00 	call	0x92	; 0x92 <_Z11add_requesti>
 	}
 	if (PINB6) {
-		
+		add_request(3);
+  fa:	83 e0       	ldi	r24, 0x03	; 3
+  fc:	90 e0       	ldi	r25, 0x00	; 0
+  fe:	0e 94 49 00 	call	0x92	; 0x92 <_Z11add_requesti>
+	}
+	if (PINB6) {
+		add_request(4);
+ 102:	84 e0       	ldi	r24, 0x04	; 4
+ 104:	90 e0       	ldi	r25, 0x00	; 0
+ 106:	0e 94 49 00 	call	0x92	; 0x92 <_Z11add_requesti>
 	}
 }
-  8c:	0f 90       	pop	r0
-  8e:	0f be       	out	0x3f, r0	; 63
-  90:	0f 90       	pop	r0
-  92:	1f 90       	pop	r1
-  94:	18 95       	reti
+ 10a:	ff 91       	pop	r31
+ 10c:	ef 91       	pop	r30
+ 10e:	bf 91       	pop	r27
+ 110:	af 91       	pop	r26
+ 112:	9f 91       	pop	r25
+ 114:	8f 91       	pop	r24
+ 116:	7f 91       	pop	r23
+ 118:	6f 91       	pop	r22
+ 11a:	5f 91       	pop	r21
+ 11c:	4f 91       	pop	r20
+ 11e:	3f 91       	pop	r19
+ 120:	2f 91       	pop	r18
+ 122:	0f 90       	pop	r0
+ 124:	0f be       	out	0x3f, r0	; 63
+ 126:	0f 90       	pop	r0
+ 128:	1f 90       	pop	r1
+ 12a:	18 95       	reti
 
-00000096 <main>:
+0000012c <_Z8adc_readh>:
+
+uint16_t adc_read(uint8_t channel) {
+	//ADMUX &= 0xF0;                            // Clear the older channel that was read
+	//ADMUX |= channel;                            // Defines the new ADC channel to be read
+	ADCSRA |= (1<<ADSC);                            // Starts a new conversion
+ 12c:	36 9a       	sbi	0x06, 6	; 6
+	while(ADCSRA & (1<<ADSC));                        // Wait until the conversion is done
+ 12e:	36 99       	sbic	0x06, 6	; 6
+ 130:	fe cf       	rjmp	.-4      	; 0x12e <_Z8adc_readh+0x2>
+	return ADCW;                                // Returns the ADC value of the chosen channel
+ 132:	84 b1       	in	r24, 0x04	; 4
+ 134:	95 b1       	in	r25, 0x05	; 5
+}
+ 136:	08 95       	ret
+
+00000138 <main>:
 	}
 }
 
 int main(void)
 {
-	DDRB &= ~(1 << PB4); // go to floor 1
-  96:	bc 98       	cbi	0x17, 4	; 23
-	DDRB &= ~(1 << PB5); // go to floor 2
-  98:	bd 98       	cbi	0x17, 5	; 23
-	DDRB &= ~(1 << PB6); // go to floor 3
-  9a:	be 98       	cbi	0x17, 6	; 23
-	DDRB &= ~(1 << PB7); // go to floor 4
-  9c:	bf 98       	cbi	0x17, 7	; 23
+	DDRB |= (1 << PB4); // 7seg 0
+ 138:	bc 9a       	sbi	0x17, 4	; 23
+	DDRB |= (1 << PB5); // 7seg 1
+ 13a:	bd 9a       	sbi	0x17, 5	; 23
+	DDRB |= (1 << PB6); // 7seg 2
+ 13c:	be 9a       	sbi	0x17, 6	; 23
+	DDRB |= (1 << PB7); // 7seg 3
+ 13e:	bf 9a       	sbi	0x17, 7	; 23
 	DDRC &= ~(1 << PC0); // request floor 1
-  9e:	a0 98       	cbi	0x14, 0	; 20
+ 140:	a0 98       	cbi	0x14, 0	; 20
 	DDRC &= ~(1 << PC1); // request floor 2
-  a0:	a1 98       	cbi	0x14, 1	; 20
+ 142:	a1 98       	cbi	0x14, 1	; 20
 	DDRC &= ~(1 << PC2); // request floor 3
-  a2:	a2 98       	cbi	0x14, 2	; 20
+ 144:	a2 98       	cbi	0x14, 2	; 20
 	DDRC &= ~(1 << PC3); // request floor 4
-  a4:	a3 98       	cbi	0x14, 3	; 20
+ 146:	a3 98       	cbi	0x14, 3	; 20
 	DDRC &= ~(1 << PC4); // IR Sensor
-  a6:	a4 98       	cbi	0x14, 4	; 20
+ 148:	a4 98       	cbi	0x14, 4	; 20
 	DDRC &= ~(1 << PC5); // alarm key
-  a8:	a5 98       	cbi	0x14, 5	; 20
+ 14a:	a5 98       	cbi	0x14, 5	; 20
+	DDRA |= (1 << PA0); //
+ 14c:	d0 9a       	sbi	0x1a, 0	; 26
+	
+	// make D0 D1 D6 C6 pins of 7seg
 	
 	// PORTD |= (1 << PD2); // Enable pull-up resistor on buttons above
 	
 	DDRD &= ~(1 << PD2); // Set PD2 as input
-  aa:	8a 98       	cbi	0x11, 2	; 17
+ 14e:	8a 98       	cbi	0x11, 2	; 17
 	PORTD |= (1 << PD2); // Enable pull-up resistor on PD2
-  ac:	92 9a       	sbi	0x12, 2	; 18
+ 150:	92 9a       	sbi	0x12, 2	; 18
 	MCUCR |= (1 << ISC01); // Set for falling edge detection
-  ae:	85 b7       	in	r24, 0x35	; 53
-  b0:	82 60       	ori	r24, 0x02	; 2
-  b2:	85 bf       	out	0x35, r24	; 53
+ 152:	85 b7       	in	r24, 0x35	; 53
+ 154:	82 60       	ori	r24, 0x02	; 2
+ 156:	85 bf       	out	0x35, r24	; 53
 	GICR |= (1 << INT0); // Enable external interrupt INT0
-  b4:	8b b7       	in	r24, 0x3b	; 59
-  b6:	80 64       	ori	r24, 0x40	; 64
-  b8:	8b bf       	out	0x3b, r24	; 59
+ 158:	8b b7       	in	r24, 0x3b	; 59
+ 15a:	80 64       	ori	r24, 0x40	; 64
+ 15c:	8b bf       	out	0x3b, r24	; 59
+	
+	// adc init
+    ADCSRA |= ((1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0));   // 16Mhz/128 = 125Khz the ADC reference clock
+ 15e:	86 b1       	in	r24, 0x06	; 6
+ 160:	87 60       	ori	r24, 0x07	; 7
+ 162:	86 b9       	out	0x06, r24	; 6
+    ADMUX |= (1<<REFS0)|(1<<REFS1);                            // Voltage reference from Avcc (5v)
+ 164:	87 b1       	in	r24, 0x07	; 7
+ 166:	80 6c       	ori	r24, 0xC0	; 192
+ 168:	87 b9       	out	0x07, r24	; 7
+	//ADMUX |= (1<<ADLAR);
+	ADMUX &= 0xFF;
+ 16a:	87 b1       	in	r24, 0x07	; 7
+ 16c:	87 b9       	out	0x07, r24	; 7
+    ADCSRA |= (1<<ADEN);                            // Turn on ADC
+ 16e:	37 9a       	sbi	0x06, 7	; 6
+    ADCSRA |= (1<<ADATE);                            // Do an initial conversion because this one is the slowest and to ensure that everything is up and running
+ 170:	35 9a       	sbi	0x06, 5	; 6
 	
 	sei(); // Enable global interrupts
-  ba:	78 94       	sei
-  bc:	ff cf       	rjmp	.-2      	; 0xbc <main+0x26>
+ 172:	78 94       	sei
+		//b = 5;
+		if (a > 700) {
+			b = 15;
+		}
+		else {
+			b = 1;
+ 174:	d1 e0       	ldi	r29, 0x01	; 1
+		//int b = ((a/100) << 4);
+		a = adc_read(0);// /100; // can be trouble some in 1024
+		// b = (a<<4);
+		//b = 5;
+		if (a > 700) {
+			b = 15;
+ 176:	cf e0       	ldi	r28, 0x0F	; 15
+    while(1)
+    {
+		// **** TEST BCD 7SEG and ADC ****
+		//
+		//int b = ((a/100) << 4);
+		a = adc_read(0);// /100; // can be trouble some in 1024
+ 178:	80 e0       	ldi	r24, 0x00	; 0
+ 17a:	0e 94 96 00 	call	0x12c	; 0x12c <_Z8adc_readh>
+		// b = (a<<4);
+		//b = 5;
+		if (a > 700) {
+ 17e:	8d 3b       	cpi	r24, 0xBD	; 189
+ 180:	92 40       	sbci	r25, 0x02	; 2
+ 182:	10 f0       	brcs	.+4      	; 0x188 <main+0x50>
+			b = 15;
+ 184:	8c 2f       	mov	r24, r28
+ 186:	01 c0       	rjmp	.+2      	; 0x18a <main+0x52>
+		}
+		else {
+			b = 1;
+ 188:	8d 2f       	mov	r24, r29
+		}
+		PORTB = b << 4;
+ 18a:	82 95       	swap	r24
+ 18c:	80 7f       	andi	r24, 0xF0	; 240
+ 18e:	88 bb       	out	0x18, r24	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-000000be <_exit>:
-  be:	f8 94       	cli
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 190:	8f e3       	ldi	r24, 0x3F	; 63
+ 192:	9d e0       	ldi	r25, 0x0D	; 13
+ 194:	23 e0       	ldi	r18, 0x03	; 3
+ 196:	81 50       	subi	r24, 0x01	; 1
+ 198:	90 40       	sbci	r25, 0x00	; 0
+ 19a:	20 40       	sbci	r18, 0x00	; 0
+ 19c:	e1 f7       	brne	.-8      	; 0x196 <main+0x5e>
+ 19e:	00 c0       	rjmp	.+0      	; 0x1a0 <main+0x68>
+ 1a0:	00 00       	nop
+ 1a2:	ea cf       	rjmp	.-44     	; 0x178 <main+0x40>
 
-000000c0 <__stop_program>:
-  c0:	ff cf       	rjmp	.-2      	; 0xc0 <__stop_program>
+000001a4 <_exit>:
+ 1a4:	f8 94       	cli
+
+000001a6 <__stop_program>:
+ 1a6:	ff cf       	rjmp	.-2      	; 0x1a6 <__stop_program>
