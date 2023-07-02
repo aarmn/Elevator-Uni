@@ -96,7 +96,7 @@ void set_request_for_floor(floor_t fl){
 floor_t get_nearest_available_request(floor_t current_floor){
 	
 	if (request_holder.number_of_avialable_requests <= 0)
-		return 9;
+		return -1;
 
 	for (int distance = 0; distance < NUMBER_OF_FLOORS; distance++) {
 		floor_t below_floor = current_floor - distance;
@@ -113,12 +113,13 @@ floor_t get_nearest_available_request(floor_t current_floor){
 		}
 			
 	}
-	return 10;
+	return -1;
 
 }
 
 
-void lift_motor_request(floor_t current_floor, floor_t dest_floor);
+void lift_go_to_floor(floor_t);
+void lift_motor_request(floor_t, floor_t);
 void update_floor(floor_t, direction);
 void update_7_seg(floor_t, direction);
 void lift_next_floor(floor_t, direction); //moves lift either one floor down or up
@@ -159,8 +160,12 @@ ISR(INT0_vect) {
 		break;
 
 	}
-	floor_t nearest_floor = get_nearest_available_request(current_floor);
-	//PORTB = nearest_floor; 
+
+	if (state == STATIONARY) {
+		floor_t nearest_floor = get_nearest_available_request(current_floor);
+		lift_go_to_floor(nearest_floor);
+	}
+
 }
 
 
@@ -171,14 +176,7 @@ int main(void)
 	init_ddr();
 	DDRB = 0XFF;
 
-
-	current_floor = 1;
-	set_request_for_floor(1);
-	set_request_for_floor(2);
-	PORTB = get_nearest_available_request(current_floor);
-	
 	while(1) {
-
 
 	}
 }
@@ -192,24 +190,35 @@ void init_ddr(){
 	KEY_SET_DDR &= ~(1 << KEY_SET_I1) & ~(1 << KEY_SET_I2) & ~(1 << KEY_SET_I4);
 
 
-	//GICR |= (1 << INT0);   //Enable External Interrupts INT0 and INT1
-//	MCUCR=0x08;  //Configure INT0 active low level triggered and INT1 as falling edge
-//	sei();     // Enable global interrupts by setting global interrupt enable bit in SREG
+	GICR |= (1 << INT0);   //Enable External Interrupts INT0 and INT1
+	MCUCR |= (1 << ISC00) | (1 << ISC01);  //Configure INT0 as rising edge trigger
+	sei();     // Enable global interrupts by setting global interrupt enable bit in SREG
 
 }
 
 
 
+void lift_go_to_floor(floor_t dest_floor){
+
+	state = MOVING;
+	lift_motor_request(current_floor, dest_floor);
+	current_floor = dest_floor; //current_floor is global variable here
+	state = STATIONARY;
+
+	open_the_door();
+	_delay_ms(WAIT_TIME_TO_CLOSE_THE_DOOR);
+	close_the_door();
+}
+
+
 void lift_motor_request(floor_t current_floor, floor_t dest_floor){
 	
-	state = MOVING;
 	int number_of_floors = current_floor - dest_floor;
 	direction dir = number_of_floors >= 0 ? ANTI_CLOCK_WISE : CLOCK_WISE; //specifing direction
 	number_of_floors = abs(number_of_floors); //specifing number of floors
 	for (int i = 0; i < number_of_floors; i++) 
 		lift_next_floor(current_floor, dir);
 		
-	state = STATIONARY;
 }
 
 
