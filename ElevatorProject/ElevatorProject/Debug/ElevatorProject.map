@@ -231,7 +231,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x372
+.text           0x00000000      0x384
  *(.vectors)
  .vectors       0x00000000       0x54 D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -324,37 +324,37 @@ END GROUP
                 0x000000d6       0xa6 ElevatorProject.o
                 0x000000d6                _Z29get_nearest_available_requesti
  .text._Z8init_ddrv
-                0x0000017c       0x22 ElevatorProject.o
+                0x0000017c       0x32 ElevatorProject.o
                 0x0000017c                _Z8init_ddrv
- .text.main     0x0000019e        0xa ElevatorProject.o
-                0x0000019e                main
+ .text.main     0x000001ae        0xc ElevatorProject.o
+                0x000001ae                main
  .text._Z31rotate_lift_motor_for_one_floor9direction
-                0x000001a8       0x2e ElevatorProject.o
-                0x000001a8                _Z31rotate_lift_motor_for_one_floor9direction
+                0x000001ba       0x2e ElevatorProject.o
+                0x000001ba                _Z31rotate_lift_motor_for_one_floor9direction
  .text._Z18lift_motor_requestii
-                0x000001d6       0x4a ElevatorProject.o
-                0x000001d6                _Z18lift_motor_requestii
+                0x000001e8       0x4a ElevatorProject.o
+                0x000001e8                _Z18lift_motor_requestii
  .text._Z13open_the_doorv
-                0x00000220       0x1e ElevatorProject.o
-                0x00000220                _Z13open_the_doorv
+                0x00000232       0x1e ElevatorProject.o
+                0x00000232                _Z13open_the_doorv
  .text._Z14close_the_doorv
-                0x0000023e       0x1e ElevatorProject.o
-                0x0000023e                _Z14close_the_doorv
+                0x00000250       0x1e ElevatorProject.o
+                0x00000250                _Z14close_the_doorv
  .text._Z16lift_go_to_floori
-                0x0000025c       0x46 ElevatorProject.o
-                0x0000025c                _Z16lift_go_to_floori
+                0x0000026e       0x46 ElevatorProject.o
+                0x0000026e                _Z16lift_go_to_floori
  .text.__vector_1
-                0x000002a2       0xae ElevatorProject.o
-                0x000002a2                __vector_1
+                0x000002b4       0xae ElevatorProject.o
+                0x000002b4                __vector_1
  .text._GLOBAL__sub_I_state
-                0x00000350       0x12 ElevatorProject.o
- .text.libgcc   0x00000362        0xc d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                0x00000362                __tablejump2__
-                0x0000036e                . = ALIGN (0x2)
+                0x00000362       0x12 ElevatorProject.o
+ .text.libgcc   0x00000374        0xc d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x00000374                __tablejump2__
+                0x00000380                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000036e        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x0000036e                _exit
-                0x0000036e                exit
+ .fini9         0x00000380        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000380                _exit
+                0x00000380                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -373,11 +373,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000036e        0x4 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000380        0x4 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000372                _etext = .
+                0x00000384                _etext = .
 
-.data           0x00800060        0x2 load address 0x00000372
+.data           0x00800060        0x2 load address 0x00000384
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -404,8 +404,8 @@ END GROUP
                 0x00800068                current_floor
  *(COMMON)
                 0x0080006a                PROVIDE (__bss_end, .)
-                0x00000372                __data_load_start = LOADADDR (.data)
-                0x00000374                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000384                __data_load_start = LOADADDR (.data)
+                0x00000386                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080006a        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -484,20 +484,20 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xbdf
+.debug_info     0x00000000      0xc1a
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6      0x6f9 ElevatorProject.o
+ .debug_info    0x000004e6      0x734 ElevatorProject.o
 
-.debug_abbrev   0x00000000      0x7ec
+.debug_abbrev   0x00000000      0x7d3
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_abbrev  0x000004a3      0x349 ElevatorProject.o
+ .debug_abbrev  0x000004a3      0x330 ElevatorProject.o
 
-.debug_line     0x00000000      0x4a9
+.debug_line     0x00000000      0x4b9
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000116      0x393 ElevatorProject.o
+ .debug_line    0x00000116      0x3a3 ElevatorProject.o
 
 .debug_frame    0x00000000      0x194
  *(.debug_frame)
@@ -509,9 +509,9 @@ END GROUP
  .debug_str     0x00000196      0x513 ElevatorProject.o
                                 0x574 (size before relaxing)
 
-.debug_loc      0x00000000      0x5e1
+.debug_loc      0x00000000      0x629
  *(.debug_loc)
- .debug_loc     0x00000000      0x5e1 ElevatorProject.o
+ .debug_loc     0x00000000      0x629 ElevatorProject.o
 
 .debug_macinfo
  *(.debug_macinfo)

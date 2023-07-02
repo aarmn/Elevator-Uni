@@ -175,6 +175,7 @@ int main(void)
 
 	init_ddr();
 	DDRB = 0XFF;
+	PORTD |= (1 << PD2);
 
 	while(1) {
 
@@ -191,7 +192,8 @@ void init_ddr(){
 
 
 	GICR |= (1 << INT0);   //Enable External Interrupts INT0 and INT1
-	MCUCR |= (1 << ISC00) | (1 << ISC01);  //Configure INT0 as rising edge trigger
+	//MCUCR |= (1 << ISC11) | (1 << ISC10);  //Configure INT0 as rising edge trigger
+	MCUCR = 0x0C;
 	sei();     // Enable global interrupts by setting global interrupt enable bit in SREG
 
 }
